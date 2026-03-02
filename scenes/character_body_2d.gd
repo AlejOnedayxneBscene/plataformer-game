@@ -7,7 +7,7 @@ const JUMP_VELOCITY = -550.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var sprite_2d = $Sprite2D
-
+@onready var timer = $Timer
 func _physics_process(delta):
 	# 1. Aplicar Gravedad 
 	if not is_on_floor():
@@ -35,7 +35,16 @@ func _physics_process(delta):
 	update_animations(direction)
 
 	# 5. Ejecutar Movimiento
+	var was_floor = is_on_floor()
 	move_and_slide()
+	var just_left_ledge = was_floor and not is_on_floor() and velocity.y>=0
+	
+	if just_left_ledge:
+		timer.start()
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or timer.time_left>0.0):
+			velocity.y = JUMP_VELOCITY
+			timer.stop()
+		
 
 func update_animations(direction):
 	if not is_on_floor():

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://chdmoootv0gxf"]
+
+[ext_resource type="Texture2D" uid="uid://cwu07ebtmqh2y" path="res://Items/Checkpoints/End/End (Idle).png" id="1_158bs"]
+
+[node name="Node2D" type="Node2D" unique_id=1223244394]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=967619026]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D" unique_id=440504407]
+position = Vector2(18.899998, 22.837996)
+scale = Vector2(1.4374999, 1.7480509)
+polygon = PackedVector2Array(23, -13.9, -17, -16.1, -17, -14.299999, -27, -9.200001, -27, 6.200001, -11.5, 14, -8.700001, 14, -8.299999, 16, -11.700001, 16, -21, 23, -21, 32, 21, 32, 21, 22.900002, 13, 17.8, 13, 16, 8.299999, 16, 8.900002, 13.200001, 14.299999, 11, 22, 11, 25, 7, 27, 7, 27, -9, 23, -12)
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D" unique_id=1262088339]
+position = Vector2(18.5, 20.5)
+scale = Vector2(1.578125, 1.640625)
+texture = ExtResource("1_158bs")

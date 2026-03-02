@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dqcieyiu157b" path="res://Assets/Terrain (16x16).png" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7n2omrk71w6d" path="res://scenes/character_body_2d.tscn" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://cgsy61ue0loa3" path="res://scenes/character_body_2d.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://chdmoootv0gxf" path="res://trophy.tscn" id="5_lquwl"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("2_1bvp3")
@@ -205,3 +206,6 @@ layer_0/tile_data = PackedInt32Array(786432, 393216, 0, 851968, 393216, 1, 78643
 [node name="CharacterBody2D" parent="." unique_id=332600592 instance=ExtResource("3_lquwl")]
 position = Vector2(-108, 95)
 script = ExtResource("4_1bvp3")
+
+[node name="Trophy" parent="." unique_id=1223244394 instance=ExtResource("5_lquwl")]
+position = Vector2(147, 116)

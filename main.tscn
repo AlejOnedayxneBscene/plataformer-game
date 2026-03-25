@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bj7pbon32nrs4" path="res://scenes/collectible.tscn" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://b50ckiff6e0pt" path="res://game_manager.gd" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cwn7015n658kk" path="res://trofeo.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://bxkn1drkvx3mo" path="res://nivel2.tscn" id="9_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("2_1bvp3")
@@ -407,6 +408,7 @@ position = Vector2(2143, -575)
 
 [node name="Area2D" parent="." unique_id=1029713555 instance=ExtResource("8_5vw27")]
 position = Vector2(4511, 387)
+target_level = ExtResource("9_kek77")
 
 [node name="ui" type="CanvasLayer" parent="." unique_id=397392518]
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cvvgbycp5c3yn" path="res://trofeo.gd" id="1_hgfqc"]
 [ext_resource type="Texture2D" uid="uid://cwu07ebtmqh2y" path="res://Items/Checkpoints/End/End (Idle).png" id="1_vfkiu"]
-[ext_resource type="PackedScene" uid="uid://bxkn1drkvx3mo" path="res://nivel2.tscn" id="2_o24tn"]
+[ext_resource type="PackedScene" uid="uid://chdmoootv0gxf" path="res://trophy.tscn" id="2_o24tn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_771l3"]
 size = Vector2(93, 103)

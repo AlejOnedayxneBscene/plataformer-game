@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://cwn7015n658kk"]
+
+[ext_resource type="Script" uid="uid://cvvgbycp5c3yn" path="res://trofeo.gd" id="1_hgfqc"]
+[ext_resource type="Texture2D" uid="uid://cwu07ebtmqh2y" path="res://Items/Checkpoints/End/End (Idle).png" id="1_vfkiu"]
+[ext_resource type="PackedScene" uid="uid://bxkn1drkvx3mo" path="res://nivel2.tscn" id="2_o24tn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_771l3"]
+size = Vector2(93, 103)
+
+[node name="Area2D" type="Area2D" unique_id=1029713555]
+script = ExtResource("1_hgfqc")
+target_level = ExtResource("2_o24tn")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=118607447]
+position = Vector2(20, 22.5)
+scale = Vector2(1.625, 1.703125)
+texture = ExtResource("1_vfkiu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=975635955]
+position = Vector2(19.5, 34.5)
+shape = SubResource("RectangleShape2D_771l3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

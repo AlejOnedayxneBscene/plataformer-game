@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Platformer game"
-run/main_scene="uid://c7rw78tsoqs8p"
+run/main_scene="uid://ucg1wueytg8c"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/mode=2
 window/stretch/mode="canvas_items"
 
 [input]

@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ucg1wueytg8c"]
+
+[ext_resource type="Script" uid="uid://ujthtjiccbm" path="res://scenes/menu.gd" id="1_con2f"]
+[ext_resource type="Texture2D" uid="uid://cyd0haiehxvpi" path="res://Assets/pngtree-nobody-interface-of-pixel-game-platform-picture-image_1962988.jpg" id="1_vjb58"]
+[ext_resource type="Texture2D" uid="uid://1uxud5haj6xh" path="res://Assets/cooltext504856077383988.png" id="2_con2f"]
+
+[node name="menu" type="Node2D" unique_id=1256483229]
+position = Vector2(607, 332)
+script = ExtResource("1_con2f")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=227332754]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -467.0
+offset_top = -140.0
+offset_right = 447.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vjb58")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1053766800]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -434.0
+offset_top = -111.0
+offset_right = 462.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_con2f")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="." unique_id=1274906427]
+offset_left = -95.0
+offset_top = 19.0
+offset_right = -34.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0.8834158, 0.87310684, 0.8597163, 1)
+theme_override_font_sizes/font_size = 30
+text = "Nivel 1"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="." unique_id=1576792793]
+offset_left = -96.0
+offset_top = 78.0
+offset_right = 11.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.8834158, 0.87310684, 0.8597163, 1)
+theme_override_font_sizes/font_size = 30
+text = "Nivel 2"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed_level1"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed_level2"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed_level2"]

@@ -360,6 +360,8 @@ script = ExtResource("4_1bvp3")
 position = Vector2(154, 425)
 position_smoothing_enabled = true
 position_smoothing_speed = 7.0
+drag_vertical_enabled = true
+drag_vertical_offset = 1.0
 
 [node name="Trophy" parent="." unique_id=1223244394 instance=ExtResource("5_lquwl")]
 position = Vector2(147, 116)

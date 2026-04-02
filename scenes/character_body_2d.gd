@@ -2,12 +2,20 @@ extends CharacterBody2D
 
 const SPEED = 300.0 # Bajamos un poco la velocidad para mejor control 
 const JUMP_VELOCITY = -550.0
+var accum = 0
+var itera = 0
+var conta = 0
+var maxim = 10
+var steps = 20
+var original_cam_pos
 
 # Obtenemos la gravedad del proyecto
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var cam = $Camera2D
 @onready var sprite_2d = $Sprite2D
 @onready var timer = $Timer
+@onready var cam_timer = $CamTimer
 func _physics_process(delta):
 	# 1. Aplicar Gravedad 
 	if not is_on_floor():
@@ -30,8 +38,18 @@ func _physics_process(delta):
 		sprite_2d.flip_h = (direction < 0) # Voltear el sprite según dirección
 	else:
 		# Frenamos usando SPEED para que se detenga en seco y no desaparezca
+	
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if Input.is_action_just_pressed("zoomIn"): 
+		if cam.zoom <= Vector2(2, 2):
+			cam.zoom += Vector2(0.5, 0.5)
 
+	if Input.is_action_just_pressed("zoomOut"): 
+		if cam.zoom >= Vector2(0.5, 0.5):
+			cam.zoom -= Vector2(0.5, 0.5)
+	
+	if Input.is_action_just_pressed("Recorrido"):
+		CameraMove()
 	# 4. Control de Animaciones 
 	update_animations(direction)
 
@@ -54,7 +72,16 @@ func update_animations(direction):
 		sprite_2d.play("Run")
 	else:
 		sprite_2d.play("Idle")
-		
+
+func CameraMove():
+				original_cam_pos = cam.global_position
+
+				itera = 0
+				conta = 0
+				accum = 0
+				cam_timer.start()
+				cam.drag_horizontal_enabled = false
+
 # Movimineto guia 1 parte 2		
 #extends CharacterBody2D
 #
@@ -92,3 +119,22 @@ func update_animations(direction):
 	#
 	#var isLeft = velocity.x < 0
 	#sprite_2d.flip_h = isLeft
+
+
+
+func _on_cam_timer_timeout() -> void:
+	if itera <= maxim:
+		# Ir hacia la izquierda
+		accum -= steps
+		cam.global_position = global_position + Vector2(accum, 0)
+		itera += 1
+	else:
+		# Regresar a la derecha
+		if accum < 0:
+			accum += steps
+			cam.global_position = global_position + Vector2(accum, 0)
+		else:
+			# Termina el recorrido
+			cam_timer.stop()
+			cam.drag_horizontal_enabled = true
+			cam.global_position = original_cam_pos

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://7n2omrk71w6d"]
 
+[ext_resource type="Script" uid="uid://cgsy61ue0loa3" path="res://scenes/character_body_2d.gd" id="1_4vejd"]
 [ext_resource type="Texture2D" uid="uid://cseskwuejpe3j" path="res://Assets/Jump (32x32).png" id="1_lj8jo"]
 [ext_resource type="Texture2D" uid="uid://bq64jv5b6yy6" path="res://Assets/Idle (32x32).png" id="2_dn4c7"]
 [ext_resource type="Texture2D" uid="uid://jvcmb12tsp2s" path="res://Assets/Run (32x32).png" id="3_4vejd"]
@@ -203,6 +204,7 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=332600592]
 position = Vector2(-35, -222)
+script = ExtResource("1_4vejd")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1654668523]
 texture_filter = 1
@@ -223,3 +225,8 @@ autoplay = &"run"
 
 [node name="Timer" type="Timer" parent="." unique_id=1288641211]
 wait_time = 0.2
+
+[node name="CamTimer" type="Timer" parent="." unique_id=1241819920]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="CamTimer" to="." method="_on_cam_timer_timeout"]

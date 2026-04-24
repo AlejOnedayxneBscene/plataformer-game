@@ -1,71 +1,90 @@
 extends CharacterBody2D
 
-const SPEED = 300.0 # Bajamos un poco la velocidad para mejor control 
+const SPEED = 300.0
 const JUMP_VELOCITY = -550.0
-var accum = 0
-var itera = 0
-var conta = 0
-var maxim = 10
-var steps = 20
-var original_cam_pos
 
-# Obtenemos la gravedad del proyecto
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var saltos := 2
+var coyote_active := false
 
-@onready var cam = $Camera2D
-@onready var sprite_2d = $Sprite2D
-@onready var timer = $Timer
-@onready var cam_timer = $CamTimer
-func _physics_process(delta):
-	# 1. Aplicar Gravedad 
+# Cámara
+var accum := 0
+var itera := 0
+const MAXIM = 10
+const STEPS = 20
+
+@onready var jump_label = $"../ui/Sprite2D/JumpLabel"
+@onready var cam        = $Camera2D
+@onready var sprite_2d  = $Sprite2D
+@onready var timer      = $Timer
+@onready var cam_timer  = $CamTimer
+
+func _ready() -> void:
+	jump_label.text = str(saltos)
+
+func _physics_process(delta: float) -> void:
+	# -------- GRAVEDAD --------
 	if not is_on_floor():
 		velocity.y += gravity * delta
-	else:
-		# IMPORTANTE: Reseteamos la velocidad en Y si está en el suelo 
-		# para evitar que la gravedad se acumule
-		velocity.y = 0 
 
-	# 2. Manejar Salto 
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# 3. Movimiento Horizontal 
-		
-	var direction = Input.get_axis("left", "right")
-	
+	# -------- MOVIMIENTO HORIZONTAL --------
+	var direction := Input.get_axis("left", "right")
+	velocity.x = direction * SPEED if direction != 0 \
+			else move_toward(velocity.x, 0, SPEED)
 	if direction != 0:
-		velocity.x = direction * SPEED
-		sprite_2d.flip_h = (direction < 0) # Voltear el sprite según dirección
-	else:
-		# Frenamos usando SPEED para que se detenga en seco y no desaparezca
-	
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-	if Input.is_action_just_pressed("zoomIn"): 
-		if cam.zoom <= Vector2(2, 2):
-			cam.zoom += Vector2(0.5, 0.5)
+		sprite_2d.flip_h = direction < 0
 
-	if Input.is_action_just_pressed("zoomOut"): 
-		if cam.zoom >= Vector2(0.5, 0.5):
-			cam.zoom -= Vector2(0.5, 0.5)
-	
+	# -------- SNAPSHOT ANTES DE MOVE_AND_SLIDE --------
+	var was_on_floor := is_on_floor()
+	move_and_slide()
+
+	# -------- COYOTE TIME --------
+	if was_on_floor and not is_on_floor() and velocity.y >= 0:
+		coyote_active = true
+		timer.start()
+
+	if timer.time_left <= 0.0:
+		coyote_active = false
+
+	# -------- RESET AL ATERRIZAR --------
+	if is_on_floor() and not was_on_floor:
+		saltos = 2
+		coyote_active = false
+		timer.stop()
+		jump_label.text = str(saltos)
+
+	# -------- SALTO --------
+	var can_jump := is_on_floor() or coyote_active or saltos > 0
+	if Input.is_action_just_pressed("jump"):
+
+	# SALTO NORMAL (suelo o coyote)
+		if is_on_floor() or coyote_active:
+			velocity.y = JUMP_VELOCITY
+			coyote_active = false
+			timer.stop()
+
+		# DOBLE SALTO (en el aire)
+		elif saltos > 0:
+			velocity.y = JUMP_VELOCITY
+			saltos -= 1
+
+		# Actualizar UI
+		jump_label.text = str(saltos)
+
+	# -------- ZOOM --------
+	if Input.is_action_just_pressed("zoomIn") and cam.zoom < Vector2(2, 2):
+		cam.zoom += Vector2(0.5, 0.5)
+	if Input.is_action_just_pressed("zoomOut") and cam.zoom > Vector2(0.5, 0.5):
+		cam.zoom -= Vector2(0.5, 0.5)
+
+	# -------- RECORRIDO CÁMARA --------
 	if Input.is_action_just_pressed("Recorrido"):
-		CameraMove()
-	# 4. Control de Animaciones 
+		camera_move()
+
+	# -------- ANIMACIONES --------
 	update_animations(direction)
 
-	# 5. Ejecutar Movimiento
-	var was_floor = is_on_floor()
-	move_and_slide()
-	var just_left_ledge = was_floor and not is_on_floor() and velocity.y>=0
-	
-	if just_left_ledge:
-		timer.start()
-	if Input.is_action_just_pressed("jump") and (is_on_floor() or timer.time_left>0.0):
-			velocity.y = JUMP_VELOCITY
-			timer.stop()
-		
-
-func update_animations(direction):
+func update_animations(direction: float) -> void:
 	if not is_on_floor():
 		sprite_2d.play("Jump")
 	elif direction != 0:
@@ -73,68 +92,21 @@ func update_animations(direction):
 	else:
 		sprite_2d.play("Idle")
 
-func CameraMove():
-				original_cam_pos = cam.global_position
-
-				itera = 0
-				conta = 0
-				accum = 0
-				cam_timer.start()
-				cam.drag_horizontal_enabled = false
-
-# Movimineto guia 1 parte 2		
-#extends CharacterBody2D
-#
-#const SPEED = 400.0
-#const JUMP_VELOCITY = -700.0
-#@onready var sprite_2d = $Sprite2D
-#
-## Get the gravity from the project settings to be synced with RigidBody nodes.
-#var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-#
-#func _physics_process(delta):
-	## Add run animation
-	#if (velocity.x > 1 || velocity.x < -1):
-		#sprite_2d.animation = "Run"
-	#else:
-		#sprite_2d.animation = "Idle"
-#
-	## Add the gravity.
-	#if not is_on_floor():
-		#velocity.y += gravity * delta
-		#sprite_2d.animation = "Jump"
-#
-	## Handle jump.
-	#if Input.is_action_just_pressed("jump") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-#
-	## Get the input direction and handle the movement/deceleration.
-	#var direction = Input.get_axis("left", "right")
-	#if direction:
-		#velocity.x = direction * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, 10)
-#
-	#move_and_slide()
-	#
-	#var isLeft = velocity.x < 0
-	#sprite_2d.flip_h = isLeft
-
-
+func camera_move() -> void:
+	accum = 0
+	itera = 0
+	cam.drag_horizontal_enabled = false
+	cam_timer.start()
 
 func _on_cam_timer_timeout() -> void:
-	if itera <= maxim:
-		# Ir hacia la izquierda
-		accum -= steps
+	if itera <= MAXIM:
+		accum -= STEPS
 		cam.global_position = global_position + Vector2(accum, 0)
 		itera += 1
+	elif accum < 0:
+		accum += STEPS
+		cam.global_position = global_position + Vector2(accum, 0)
 	else:
-		# Regresar a la derecha
-		if accum < 0:
-			accum += steps
-			cam.global_position = global_position + Vector2(accum, 0)
-		else:
-			# Termina el recorrido
-			cam_timer.stop()
-			cam.drag_horizontal_enabled = true
-			cam.global_position = original_cam_pos
+		cam_timer.stop()
+		cam.global_position = global_position  # re-anchor to current player pos
+		cam.drag_horizontal_enabled = true

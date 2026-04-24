@@ -3,12 +3,15 @@
 [ext_resource type="Texture2D" uid="uid://dir4cj4vlec1i" path="res://Assets/Green.png" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://dqcieyiu157b" path="res://Assets/Terrain (16x16).png" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://7n2omrk71w6d" path="res://scenes/character_body_2d.tscn" id="3_lquwl"]
-[ext_resource type="Script" uid="uid://cgsy61ue0loa3" path="res://scenes/character_body_2d.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://chdmoootv0gxf" path="res://trophy.tscn" id="5_lquwl"]
 [ext_resource type="PackedScene" uid="uid://bj7pbon32nrs4" path="res://scenes/collectible.tscn" id="6_7mycd"]
 [ext_resource type="Script" uid="uid://b50ckiff6e0pt" path="res://game_manager.gd" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://cwn7015n658kk" path="res://trofeo.tscn" id="8_5vw27"]
+[ext_resource type="PackedScene" uid="uid://cw6r85hlismvc" path="res://texture_rect_2.tscn" id="9_4c57u"]
 [ext_resource type="PackedScene" uid="uid://bxkn1drkvx3mo" path="res://nivel2.tscn" id="9_kek77"]
+[ext_resource type="Texture2D" uid="uid://bnjxy3kj0wpsn" path="res://Assets/Marco.png" id="10_efxa6"]
+[ext_resource type="Texture2D" uid="uid://co1nly31h2gjq" path="res://Assets/Gradient.png" id="11_dg77c"]
+[ext_resource type="Texture2D" uid="uid://3yrhtra325ph" path="res://Assets/Jumps.png" id="12_dg77c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("2_1bvp3")
@@ -335,10 +338,10 @@ anchor_left = -0.20400001
 anchor_top = -0.43600002
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -410.992
-offset_top = -174.47198
-offset_right = 3596.0
-offset_bottom = 356.0
+offset_left = -407.992
+offset_top = -153.47198
+offset_right = 3599.0
+offset_bottom = 377.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_h2yge")
@@ -354,7 +357,6 @@ layer_0/tile_data = PackedInt32Array(786432, 393216, 0, 851968, 393216, 1, 78643
 
 [node name="CharacterBody2D" parent="." unique_id=332600592 instance=ExtResource("3_lquwl")]
 position = Vector2(-96, 99)
-script = ExtResource("4_1bvp3")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=2123667489]
 position = Vector2(154, 425)
@@ -372,17 +374,14 @@ script = ExtResource("7_272bh")
 
 [node name="Collectible" type="Node" parent="." unique_id=1324111387]
 
-[node name="Collectible3" parent="Collectible" unique_id=1053259203 instance=ExtResource("6_7mycd")]
-position = Vector2(180, -288)
-
 [node name="Collectible2" parent="Collectible" unique_id=1143775021 instance=ExtResource("6_7mycd")]
-position = Vector2(303, -101)
+position = Vector2(-172, -434)
 
 [node name="Collectible" parent="Collectible" unique_id=1740491816 instance=ExtResource("6_7mycd")]
 position = Vector2(-36, -7)
 
 [node name="Collectible4" parent="Collectible" unique_id=166385905 instance=ExtResource("6_7mycd")]
-position = Vector2(586, -391)
+position = Vector2(-169, -434)
 
 [node name="Collectible5" parent="Collectible" unique_id=1057336786 instance=ExtResource("6_7mycd")]
 position = Vector2(-730, -58)
@@ -430,6 +429,38 @@ offset_bottom = -6.0000153
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 30
-text = "Puntos 0"
+text = " 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Collectible3" parent="ui/Panel/PointsLabel" unique_id=1053259203 instance=ExtResource("6_7mycd")]
+position = Vector2(-169, -430)
+
+[node name="TextureRect2" parent="ui" unique_id=152624870 instance=ExtResource("9_4c57u")]
+offset_left = 449.0
+offset_top = -4.0
+offset_right = 682.0
+offset_bottom = 137.0
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="ui/TextureRect2" unique_id=1480243628]
+layout_mode = 0
+offset_left = 386.0
+offset_top = -15.0
+offset_right = 665.0
+offset_bottom = 110.0
+max_value = 20.0
+value = 2.0
+texture_over = ExtResource("10_efxa6")
+texture_progress = ExtResource("11_dg77c")
+
+[node name="Sprite2D" type="Sprite2D" parent="ui" unique_id=1510787583]
+position = Vector2(52, 524)
+scale = Vector2(3.2214284, 3.4357133)
+texture = ExtResource("12_dg77c")
+
+[node name="JumpLabel" type="Label" parent="ui/Sprite2D" unique_id=1105495089]
+offset_left = 11.0
+offset_top = -5.0
+offset_right = 51.0
+offset_bottom = 18.0
+text = "2"

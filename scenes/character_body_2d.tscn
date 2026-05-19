@@ -192,7 +192,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2brh"]
-size = Vector2(24.64, 31.06186)
+size = Vector2(15.84, 22.458763)
 
 [sub_resource type="Animation" id="Animation_rsbhr"]
 resource_name = "run"
@@ -203,6 +203,8 @@ _data = {
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=332600592]
+light_mask = 2
+visibility_layer = 29
 position = Vector2(-35, -222)
 script = ExtResource("1_4vejd")
 
@@ -215,7 +217,7 @@ animation = &"Run"
 frame_progress = 0.24555403
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1996283133]
-position = Vector2(163, 425.00003)
+position = Vector2(162, 430)
 scale = Vector2(3.125, 3.0312507)
 shape = SubResource("RectangleShape2D_g2brh")
 

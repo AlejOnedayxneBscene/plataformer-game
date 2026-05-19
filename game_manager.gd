@@ -1,7 +1,12 @@
 extends Node2D
-@onready var points_label = $"../ui/Panel/PointsLabel"
-@onready var texture_progress_bar = $"../ui/TextureRect2/TextureProgressBar2"
+var points_label
+var texture_progress_bar
 var puntos = 0
+
+func _ready():
+	points_label = get_node("/root/ui/Panel/PointsLabel")
+	texture_progress_bar = get_node("/root/ui/TextureRect2/TextureProgressBar")
+
 func add_puntos():
 	puntos += 1
 	print("Puntos:", puntos)

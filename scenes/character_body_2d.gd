@@ -110,3 +110,7 @@ func _on_cam_timer_timeout() -> void:
 		cam_timer.stop()
 		cam.global_position = global_position  # re-anchor to current player pos
 		cam.drag_horizontal_enabled = true
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.

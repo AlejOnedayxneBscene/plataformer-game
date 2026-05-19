@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://c2qdbf5yu6kv0"]
+
+[ext_resource type="PackedScene" uid="uid://bj7pbon32nrs4" path="res://scenes/collectible.tscn" id="1_ibotj"]
+[ext_resource type="PackedScene" uid="uid://cw6r85hlismvc" path="res://texture_rect_2.tscn" id="2_n5ude"]
+[ext_resource type="Texture2D" uid="uid://bnjxy3kj0wpsn" path="res://Assets/Marco.png" id="3_y4yjw"]
+[ext_resource type="Texture2D" uid="uid://co1nly31h2gjq" path="res://Assets/Gradient.png" id="4_waa4j"]
+[ext_resource type="Texture2D" uid="uid://3yrhtra325ph" path="res://Assets/Jumps.png" id="5_ok7cu"]
+
+[node name="ui" type="CanvasLayer" unique_id=2139416577]
+
+[node name="Panel" type="Panel" parent="." unique_id=1872577730]
+offset_left = 20.0
+offset_top = 9.0
+offset_right = 391.0
+offset_bottom = 153.0
+
+[node name="PointsLabel" type="Label" parent="Panel" unique_id=1505925026]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -9.0
+offset_right = 23.0
+offset_bottom = -9.0000305
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = " 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Collectible3" parent="Panel" unique_id=1740491816 instance=ExtResource("1_ibotj")]
+position = Vector2(79, 7)
+
+[node name="TextureRect2" parent="." unique_id=152624870 instance=ExtResource("2_n5ude")]
+offset_left = 449.0
+offset_top = -4.0
+offset_right = 682.0
+offset_bottom = 137.0
+
+[node name="TextureProgressBar2" type="TextureProgressBar" parent="TextureRect2" unique_id=563094178]
+layout_mode = 0
+offset_left = 386.0
+offset_top = -15.0
+offset_right = 665.0
+offset_bottom = 110.0
+max_value = 20.0
+value = 2.0
+texture_over = ExtResource("3_y4yjw")
+texture_progress = ExtResource("4_waa4j")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=834165178]
+position = Vector2(126, 437)
+scale = Vector2(3.2214284, 3.4357133)
+texture = ExtResource("5_ok7cu")
+
+[node name="JumpLabel" type="Label" parent="Sprite2D" unique_id=301353697]
+offset_left = 11.0
+offset_top = -5.0
+offset_right = 51.0
+offset_bottom = 18.0
+text = "2"
